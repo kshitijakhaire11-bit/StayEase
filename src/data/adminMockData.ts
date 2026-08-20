@@ -1,0 +1,680 @@
+import { 
+  AdminBooking, 
+  AdminRoom, 
+  AdminCustomer, 
+  AdminTransaction, 
+  AdminRefund, 
+  AdminReview, 
+  AdminOffer, 
+  AdminSystemStatus, 
+  AdminAuditLog 
+} from '../types/admin';
+
+export const HOTELS_ADMIN_LIST = [
+  { id: 'all', name: 'All Properties (Pan-India Portfolio)', city: 'All', state: 'All', roomsCount: 1420 },
+  { id: 'taj-lands-end', name: 'Taj Lands End, Mumbai', city: 'Mumbai', state: 'Maharashtra', roomsCount: 300 },
+  { id: 'taj-exotica-goa', name: 'Taj Exotica Resort & Spa', city: 'Goa', state: 'Goa', roomsCount: 140 },
+  { id: 'itc-maratha', name: 'ITC Maratha, Mumbai', city: 'Mumbai', state: 'Maharashtra', roomsCount: 380 },
+  { id: 'trident-nariman-point', name: 'Trident Nariman Point', city: 'Mumbai', state: 'Maharashtra', roomsCount: 550 },
+  { id: 'leela-bengaluru', name: 'The Leela Palace Bengaluru', city: 'Bengaluru', state: 'Karnataka', roomsCount: 357 },
+  { id: 'oberoi-amarvilas', name: 'The Oberoi Amarvilas, Agra', city: 'Agra', state: 'Uttar Pradesh', roomsCount: 102 },
+];
+
+export const INITIAL_ADMIN_BOOKINGS: AdminBooking[] = [
+  {
+    id: 'STE-849204',
+    pnr: 'SE-MUM-9921',
+    hotelId: 'taj-lands-end',
+    hotelName: 'Taj Lands End, Mumbai',
+    city: 'Mumbai',
+    roomNumber: 'Suite 408',
+    roomType: 'Deluxe Sea View Suite',
+    guestName: 'Alexander Wright',
+    guestEmail: 'alexander.wright@luxuryestates.com',
+    guestPhone: '+91 98765 43210',
+    guestTier: 'StayEase Elite Black',
+    idProofType: 'Passport',
+    idProofNumberMasked: 'P****7892',
+    idVerified: true,
+    checkIn: '2026-08-20',
+    checkOut: '2026-08-25',
+    nights: 5,
+    adults: 2,
+    children: 0,
+    amount: 42500,
+    taxes: 7650,
+    discount: 2000,
+    netPayable: 48150,
+    paymentMethod: 'Credit Card',
+    paymentGateway: 'Razorpay',
+    paymentStatus: 'Paid',
+    bookingStatus: 'Confirmed',
+    specialRequests: 'High floor, feather pillows, sea view facing sunrise, airport BMW transfer.',
+    bookedAt: '2026-08-18 14:22',
+    notes: 'VIP guest - 14th stay with StayEase portfolio. Welcome champagne requested.'
+  },
+  {
+    id: 'STE-773190',
+    pnr: 'SE-GOA-4412',
+    hotelId: 'taj-exotica-goa',
+    hotelName: 'Taj Exotica Resort & Spa',
+    city: 'Goa',
+    roomNumber: 'Villa 104',
+    roomType: 'Presidential Beachfront Villa',
+    guestName: 'Priya Sharma',
+    guestEmail: 'priya.sharma@techventure.in',
+    guestPhone: '+91 98201 55432',
+    guestTier: 'Gold',
+    idProofType: 'Aadhaar Card',
+    idProofNumberMasked: 'XXXX-XXXX-9421',
+    idVerified: true,
+    checkIn: '2026-08-20',
+    checkOut: '2026-08-23',
+    nights: 3,
+    adults: 2,
+    children: 1,
+    amount: 45000,
+    taxes: 8100,
+    discount: 3000,
+    netPayable: 50100,
+    paymentMethod: 'UPI',
+    paymentGateway: 'Juspay',
+    paymentStatus: 'Paid',
+    bookingStatus: 'Checked In',
+    specialRequests: 'Baby cot, non-dairy breakfast options, late check-out requested.',
+    bookedAt: '2026-08-15 10:10',
+    notes: 'Checked in by Front Desk Agent Rohit at 13:45.'
+  },
+  {
+    id: 'STE-662810',
+    pnr: 'SE-MUM-8819',
+    hotelId: 'itc-maratha',
+    hotelName: 'ITC Maratha, Mumbai',
+    city: 'Mumbai',
+    roomNumber: 'Room 512',
+    roomType: 'Executive Club Room',
+    guestName: 'Vikramaditya Roy',
+    guestEmail: 'v.roy@conglomerate.com',
+    guestPhone: '+91 99887 76655',
+    guestTier: 'StayEase Elite Black',
+    idProofType: 'Aadhaar Card',
+    idProofNumberMasked: 'XXXX-XXXX-1123',
+    idVerified: true,
+    checkIn: '2026-08-19',
+    checkOut: '2026-08-21',
+    nights: 2,
+    adults: 1,
+    children: 0,
+    amount: 22000,
+    taxes: 3960,
+    discount: 0,
+    netPayable: 25960,
+    paymentMethod: 'Corporate Account',
+    paymentGateway: 'BillDesk',
+    paymentStatus: 'Paid',
+    bookingStatus: 'Checked In',
+    specialRequests: 'Quiet room near elevator, GST corporate invoice with ITC GSTIN.',
+    bookedAt: '2026-08-17 09:30',
+    notes: 'Corporate rate contract tier 1.'
+  },
+  {
+    id: 'STE-551940',
+    pnr: 'SE-BLR-3104',
+    hotelId: 'leela-bengaluru',
+    hotelName: 'The Leela Palace Bengaluru',
+    city: 'Bengaluru',
+    roomNumber: 'Suite 302',
+    roomType: 'Royal Maharaja Suite',
+    guestName: 'Ananya Deshpande',
+    guestEmail: 'ananya.d@designstudio.in',
+    guestPhone: '+91 97654 32109',
+    guestTier: 'Silver',
+    idProofType: 'Aadhaar Card',
+    idProofNumberMasked: 'XXXX-XXXX-4490',
+    idVerified: true,
+    checkIn: '2026-08-24',
+    checkOut: '2026-08-28',
+    nights: 4,
+    adults: 2,
+    children: 0,
+    amount: 68000,
+    taxes: 12240,
+    discount: 5000,
+    netPayable: 75240,
+    paymentMethod: 'Credit Card',
+    paymentGateway: 'Razorpay',
+    paymentStatus: 'Paid',
+    bookingStatus: 'Confirmed',
+    specialRequests: 'High floor garden facing, vegetarian Jain dining arrangements.',
+    bookedAt: '2026-08-19 16:45'
+  },
+  {
+    id: 'STE-440281',
+    pnr: 'SE-MUM-7734',
+    hotelId: 'trident-nariman-point',
+    hotelName: 'Trident Nariman Point',
+    city: 'Mumbai',
+    roomNumber: 'Room 810',
+    roomType: 'Premier Ocean View Room',
+    guestName: 'Kavita Chawla',
+    guestEmail: 'kavita.chawla@globalinvest.com',
+    guestPhone: '+91 98112 34567',
+    guestTier: 'StayEase Elite Black',
+    idProofType: 'Passport',
+    idProofNumberMasked: 'K****1192',
+    idVerified: true,
+    checkIn: '2026-08-16',
+    checkOut: '2026-08-19',
+    nights: 3,
+    adults: 2,
+    children: 0,
+    amount: 36000,
+    taxes: 6480,
+    discount: 0,
+    netPayable: 42480,
+    paymentMethod: 'Credit Card',
+    paymentGateway: 'Razorpay',
+    paymentStatus: 'Paid',
+    bookingStatus: 'Checked Out',
+    specialRequests: 'Early check-in 11 AM.',
+    bookedAt: '2026-08-12 11:20'
+  }
+];
+
+export const INITIAL_ADMIN_ROOMS: AdminRoom[] = [
+  {
+    id: 'rm-101',
+    roomNumber: '101',
+    floor: 1,
+    type: 'Deluxe City View Room',
+    tier: 'Deluxe',
+    basePrice: 8500,
+    status: 'Clean & Available',
+    lastCleaned: '2026-08-20 01:15',
+    housekeeper: 'Rameshwar Yadav',
+    features: ['Wi-Fi 6', 'King Bed', 'City View', 'Work Desk']
+  },
+  {
+    id: 'rm-102',
+    roomNumber: '102',
+    floor: 1,
+    type: 'Deluxe City View Room',
+    tier: 'Deluxe',
+    basePrice: 8500,
+    status: 'Dirty',
+    lastCleaned: '2026-08-19 18:30',
+    housekeeper: 'Assigned on Shift',
+    features: ['Wi-Fi 6', 'Twin Beds', 'City View']
+  },
+  {
+    id: 'rm-104',
+    roomNumber: 'Villa 104',
+    floor: 1,
+    type: 'Presidential Beachfront Villa',
+    tier: 'Presidential Villa',
+    basePrice: 45000,
+    status: 'Occupied',
+    assignedGuest: 'Priya Sharma',
+    assignedBookingId: 'STE-773190',
+    lastCleaned: '2026-08-20 12:00',
+    housekeeper: 'Sunita Mehra',
+    features: ['Private Plunge Pool', 'Beach Access', 'Butler Pantry', 'Jacuzzi']
+  },
+  {
+    id: 'rm-201',
+    roomNumber: '201',
+    floor: 2,
+    type: 'Executive Ocean Facing Room',
+    tier: 'Deluxe',
+    basePrice: 12500,
+    status: 'Inspected',
+    lastCleaned: '2026-08-20 01:45',
+    housekeeper: 'Deepak Kumar (Supervisor Approved)',
+    features: ['Arabian Sea View', 'Balcony', 'Nespresso Machine']
+  },
+  {
+    id: 'rm-302',
+    roomNumber: 'Suite 302',
+    floor: 3,
+    type: 'Royal Maharaja Suite',
+    tier: 'Ocean Suite',
+    basePrice: 28000,
+    status: 'Clean & Available',
+    lastCleaned: '2026-08-20 00:30',
+    housekeeper: 'Anil Rathore',
+    features: ['Living Room', 'Powder Room', 'Sea View', 'Complimentary Minibar']
+  },
+  {
+    id: 'rm-408',
+    roomNumber: 'Suite 408',
+    floor: 4,
+    type: 'Deluxe Sea View Suite',
+    tier: 'Ocean Suite',
+    basePrice: 25000,
+    status: 'Occupied',
+    assignedGuest: 'Alexander Wright',
+    assignedBookingId: 'STE-849204',
+    lastCleaned: '2026-08-20 11:30',
+    housekeeper: 'Rameshwar Yadav',
+    features: ['Panoramic Bay View', 'Deep Soaking Tub', 'Walk-in Wardrobe']
+  },
+  {
+    id: 'rm-512',
+    roomNumber: 'Room 512',
+    floor: 5,
+    type: 'Executive Club Room',
+    tier: 'Standard',
+    basePrice: 11000,
+    status: 'Occupied',
+    assignedGuest: 'Vikramaditya Roy',
+    assignedBookingId: 'STE-662810',
+    lastCleaned: '2026-08-19 14:00',
+    housekeeper: 'Suresh Patil',
+    features: ['Lounge Access', 'Airport Transfer', 'High Floor']
+  },
+  {
+    id: 'rm-515',
+    roomNumber: 'Room 515',
+    floor: 5,
+    type: 'Executive Club Room',
+    tier: 'Standard',
+    basePrice: 11000,
+    status: 'Maintenance',
+    lastCleaned: '2026-08-18 10:00',
+    housekeeper: 'Engineering - HVAC Maintenance',
+    features: ['Lounge Access', 'Smart TV']
+  }
+];
+
+export const INITIAL_ADMIN_CUSTOMERS: AdminCustomer[] = [
+  {
+    id: 'CUST-801',
+    name: 'Alexander Wright',
+    email: 'alexander.wright@luxuryestates.com',
+    phone: '+91 98765 43210',
+    city: 'Mumbai',
+    tier: 'StayEase Elite Black',
+    totalBookings: 14,
+    totalSpend: 840000,
+    loyaltyPoints: 48500,
+    kycStatus: 'Verified (Passport)',
+    joinedDate: '2024-02-15',
+    lastStay: '2026-08-20',
+    favoriteHotel: 'Taj Lands End, Mumbai',
+    dietaryPreference: 'Continental / High-protein, gluten-sensitive',
+    specialPreferences: ['Corner Sea Facing Suites', 'BMW 7-Series Airport Transfer', 'High Floor'],
+    tags: ['Ultra High Net Worth', 'Founding Member', 'Direct Executive Booker']
+  },
+  {
+    id: 'CUST-802',
+    name: 'Priya Sharma',
+    email: 'priya.sharma@techventure.in',
+    phone: '+91 98201 55432',
+    city: 'Bengaluru',
+    tier: 'Gold',
+    totalBookings: 8,
+    totalSpend: 380000,
+    loyaltyPoints: 21000,
+    kycStatus: 'Verified (Aadhaar)',
+    joinedDate: '2024-09-10',
+    lastStay: '2026-08-20',
+    favoriteHotel: 'Taj Exotica Resort & Spa, Goa',
+    dietaryPreference: 'Vegan / Plant-based',
+    specialPreferences: ['Plunge Pool Villas', 'Ayurvedic Spa Packages', 'Quiet Zone'],
+    tags: ['Tech Founder', 'Resort Loyalty', 'Family Traveler']
+  },
+  {
+    id: 'CUST-803',
+    name: 'Vikramaditya Roy',
+    email: 'v.roy@conglomerate.com',
+    phone: '+91 99887 76655',
+    city: 'Kolkata',
+    tier: 'StayEase Elite Black',
+    totalBookings: 22,
+    totalSpend: 1120000,
+    loyaltyPoints: 74200,
+    kycStatus: 'Verified (Aadhaar)',
+    joinedDate: '2023-11-01',
+    lastStay: '2026-08-19',
+    favoriteHotel: 'ITC Maratha, Mumbai',
+    dietaryPreference: 'North Indian Gourmet, Sugar-free desserts',
+    specialPreferences: ['Executive Lounge Access', 'Express 7 AM Breakfast', 'Late Checkout 4 PM'],
+    tags: ['Board Member', 'Corporate Contract Account', 'Frequent Flyer']
+  },
+  {
+    id: 'CUST-804',
+    name: 'Kavita Chawla',
+    email: 'kavita.chawla@globalinvest.com',
+    phone: '+91 98112 34567',
+    city: 'New Delhi',
+    tier: 'StayEase Elite Black',
+    totalBookings: 11,
+    totalSpend: 620000,
+    loyaltyPoints: 35600,
+    kycStatus: 'Verified (Passport)',
+    joinedDate: '2024-05-18',
+    lastStay: '2026-08-16',
+    favoriteHotel: 'Trident Nariman Point',
+    dietaryPreference: 'Mediterranean / Pescatarian',
+    specialPreferences: ['Sunrise Sea Facing', 'Hard Pillows', 'In-room Yoga Mat'],
+    tags: ['Private Equity Partner', 'Elite Black']
+  }
+];
+
+export const INITIAL_ADMIN_TRANSACTIONS: AdminTransaction[] = [
+  {
+    txnId: 'TXN-998241',
+    bookingId: 'STE-849204',
+    guestName: 'Alexander Wright',
+    gateway: 'Razorpay',
+    method: 'Credit Card (Amex Black)',
+    amount: 48150,
+    gstAmount: 7650,
+    platformFee: 2407,
+    hotelPayout: 38093,
+    status: 'Captured & Settled',
+    utrOrRrn: 'RZP_PAY_991823749',
+    timestamp: '2026-08-18 14:23:10'
+  },
+  {
+    txnId: 'TXN-998240',
+    bookingId: 'STE-773190',
+    guestName: 'Priya Sharma',
+    gateway: 'Juspay',
+    method: 'UPI (GPay / Axis Bank)',
+    amount: 50100,
+    gstAmount: 8100,
+    platformFee: 2505,
+    hotelPayout: 39495,
+    status: 'Captured & Settled',
+    utrOrRrn: 'UPI_RRN_420188921',
+    timestamp: '2026-08-15 10:11:45'
+  },
+  {
+    txnId: 'TXN-998239',
+    bookingId: 'STE-662810',
+    guestName: 'Vikramaditya Roy',
+    gateway: 'BillDesk',
+    method: 'HDFC Corporate NetBanking',
+    amount: 25960,
+    gstAmount: 3960,
+    platformFee: 1298,
+    hotelPayout: 20702,
+    status: 'Captured & Settled',
+    utrOrRrn: 'BD_HDFC_8849102',
+    timestamp: '2026-08-17 09:31:00'
+  },
+  {
+    txnId: 'TXN-998238',
+    bookingId: 'STE-551940',
+    guestName: 'Ananya Deshpande',
+    gateway: 'Razorpay',
+    method: 'Visa Infinite Card',
+    amount: 75240,
+    gstAmount: 12240,
+    platformFee: 3762,
+    hotelPayout: 59238,
+    status: 'Captured & Settled',
+    utrOrRrn: 'RZP_PAY_884102941',
+    timestamp: '2026-08-19 16:46:22'
+  }
+];
+
+export const INITIAL_ADMIN_REFUNDS: AdminRefund[] = [
+  {
+    refundId: 'REF-2026-0891',
+    bookingId: 'STE-991204',
+    guestName: 'Sanjay Deshmukh',
+    guestEmail: 'sanjay.d@mumbaiestates.in',
+    hotelName: 'Taj Lands End, Mumbai',
+    totalBookingAmount: 16500,
+    refundAmount: 14850,
+    cancellationPenalty: 1650,
+    reason: 'Flight delayed from London by 24h due to storm. Requested polite date cancellation.',
+    requestedAt: '2026-08-20 01:20',
+    slaHoursLeft: 3.5,
+    status: 'Pending Approval',
+    refundMethod: 'Instant UPI Reversal'
+  },
+  {
+    refundId: 'REF-2026-0890',
+    bookingId: 'STE-990118',
+    guestName: 'Nandita Kapoor',
+    guestEmail: 'nandita.k@fashionhouse.com',
+    hotelName: 'Taj Exotica Resort & Spa',
+    totalBookingAmount: 48000,
+    refundAmount: 48000,
+    cancellationPenalty: 0,
+    reason: 'Cancelled 7 days in advance within Free Cancellation Window.',
+    requestedAt: '2026-08-19 14:10',
+    slaHoursLeft: 0,
+    status: 'Completed',
+    refundMethod: 'Source Card Reversal',
+    gatewayRefundRef: 'rfnd_PWk99201948',
+    processedBy: 'Siddharth Tagore'
+  }
+];
+
+export const INITIAL_ADMIN_REVIEWS: AdminReview[] = [
+  {
+    id: 'REV-401',
+    hotelId: 'taj-lands-end',
+    hotelName: 'Taj Lands End, Mumbai',
+    city: 'Mumbai',
+    guestName: 'Alexander Wright',
+    guestTier: 'StayEase Elite Black',
+    rating: 5.0,
+    subRatings: {
+      cleanliness: 5.0,
+      service: 5.0,
+      location: 5.0,
+      value: 4.8
+    },
+    stayDate: 'August 2026',
+    roomType: 'Deluxe Sea View Suite',
+    comment: 'Exceptional hospitality from the moment our car pulled up. The Bandra-Worli Sea Link panorama at sunset was breathtaking, and the concierge staff catered to every bespoke dining request effortlessly.',
+    tags: ['Sea View Excellence', 'Bespoke Concierge', 'Flawless Check-in'],
+    createdAt: '2026-08-19',
+    response: {
+      respondedAt: '2026-08-19 22:30',
+      responderName: 'Siddharth Tagore',
+      message: 'Dear Mr. Wright, it was our distinct pleasure hosting you once again at Taj Lands End. We look forward to welcoming you back for your upcoming October stay.'
+    }
+  },
+  {
+    id: 'REV-402',
+    hotelId: 'taj-exotica-goa',
+    hotelName: 'Taj Exotica Resort & Spa',
+    city: 'Goa',
+    guestName: 'Priya Sharma',
+    guestTier: 'Gold',
+    rating: 4.9,
+    subRatings: {
+      cleanliness: 5.0,
+      service: 4.9,
+      location: 5.0,
+      value: 4.7
+    },
+    stayDate: 'August 2026',
+    roomType: 'Presidential Beachfront Villa',
+    comment: 'The beachfront villa in Benaulim was tranquil and immaculate. The culinary team prepared customized Jain and vegan dinners every evening.',
+    tags: ['Beachfront Luxury', 'Gourmet Vegan', 'Peaceful Gardens'],
+    createdAt: '2026-08-18'
+  }
+];
+
+export const INITIAL_ADMIN_OFFERS: AdminOffer[] = [
+  {
+    id: 'OFF-101',
+    code: 'MONSOONMAGIC',
+    title: 'Monsoon Coastal Sanctuary Concession',
+    description: '20% off on minimum 2-night stays across luxury villas in Goa & Kerala.',
+    discountType: 'Percentage',
+    discountValue: 20,
+    minSpend: 15000,
+    maxDiscount: 6000,
+    validFrom: '2026-07-01',
+    validUntil: '2026-09-30',
+    usageCount: 412,
+    usageLimit: 1000,
+    isActive: true
+  },
+  {
+    id: 'OFF-102',
+    code: 'ELITEBLACK',
+    title: 'StayEase Elite Black Privilege Tariff',
+    description: 'Exclusive 15% flat rate reduction plus complimentary airport BMW transfer.',
+    discountType: 'Percentage',
+    discountValue: 15,
+    minSpend: 25000,
+    validFrom: '2026-01-01',
+    validUntil: '2026-12-31',
+    usageCount: 890,
+    usageLimit: 5000,
+    isActive: true,
+    applicableTier: 'StayEase Elite Black'
+  },
+  {
+    id: 'OFF-103',
+    code: 'CORPEXEC15',
+    title: 'Corporate Executive Weekday Tariff',
+    description: '₹3,500 flat concession on business suites across Mumbai and Bengaluru.',
+    discountType: 'Flat',
+    discountValue: 3500,
+    minSpend: 18000,
+    validFrom: '2026-08-01',
+    validUntil: '2026-11-30',
+    usageCount: 228,
+    usageLimit: 500,
+    isActive: true
+  }
+];
+
+export const INITIAL_ADMIN_SYSTEM_STATUS: AdminSystemStatus = {
+  overallHealth: 'All Systems Operational',
+  uptimePct: 99.98,
+  services: [
+    {
+      name: 'StayEase Core Booking & Pricing Engine',
+      category: 'Core API',
+      status: 'Operational',
+      latencyMs: 38,
+      uptime: '99.99%',
+      lastChecked: 'Just now (02:00 IST)'
+    },
+    {
+      name: 'PMS Tape-Chart Live Synchronizer (Opera Cloud / IDS Next)',
+      category: 'Inventory Syncer',
+      status: 'Operational',
+      latencyMs: 52,
+      uptime: '99.96%',
+      lastChecked: '12s ago'
+    },
+    {
+      name: 'Unified Payment Gateway Router (UPI Intent / Card NetBanking)',
+      category: 'Payment Gateway',
+      status: 'Operational',
+      latencyMs: 115,
+      uptime: '99.98%',
+      lastChecked: '4s ago'
+    },
+    {
+      name: 'Instant Refund Dispatcher (IMPS / UPI-R)',
+      category: 'Payment Gateway',
+      status: 'Operational',
+      latencyMs: 140,
+      uptime: '99.95%',
+      lastChecked: '28s ago'
+    },
+    {
+      name: 'GST Electronic Invoice & NIC Bridge (SAC 996311)',
+      category: 'Core API',
+      status: 'Operational',
+      latencyMs: 82,
+      uptime: '99.97%',
+      lastChecked: 'Just now'
+    },
+    {
+      name: 'WhatsApp & SMS Guest Notification Engine (Airtel IQ)',
+      category: 'Notification Engine',
+      status: 'Operational',
+      latencyMs: 95,
+      uptime: '99.99%',
+      lastChecked: '1m ago'
+    }
+  ]
+};
+
+export const INITIAL_ADMIN_AUDIT_LOGS: AdminAuditLog[] = [
+  {
+    id: 'AUD-99120',
+    timestamp: '2026-08-20 02:00:15',
+    user: 'Siddharth Tagore (Operations Director)',
+    role: 'super_admin',
+    action: 'APPROVED_INSTANT_REFUND',
+    entity: 'Refund Reversal',
+    entityId: 'REF-2026-0890 (₹48,000 to Nandita Kapoor)',
+    ipAddress: '103.21.14.88 (Mumbai, IN)',
+    severity: 'info'
+  },
+  {
+    id: 'AUD-99119',
+    timestamp: '2026-08-20 01:45:20',
+    user: 'Rohit Sharma (Front Desk Lead)',
+    role: 'operations',
+    action: 'ROOM_TAPE_CHART_STATUS_CHECKIN',
+    entity: 'Suite 408',
+    entityId: 'Assigned to Alexander Wright',
+    ipAddress: '115.112.45.10 (Mumbai, IN)',
+    severity: 'info'
+  },
+  {
+    id: 'AUD-99118',
+    timestamp: '2026-08-20 01:10:04',
+    user: 'Neha Varma (Support Agent)',
+    role: 'support_agent',
+    action: 'GUEST_KYC_VERIFICATION_COMPLETE',
+    entity: 'Customer Profile',
+    entityId: 'CUST-802 (Aadhaar Verified)',
+    ipAddress: '103.44.12.9 (Bengaluru, IN)',
+    severity: 'info'
+  },
+  {
+    id: 'AUD-99117',
+    timestamp: '2026-08-19 23:30:11',
+    user: 'Aman Mathur (Revenue Director)',
+    role: 'hotel_owner',
+    action: 'DYNAMIC_SURGE_RATE_PUBLISHED',
+    entity: 'Rate Plan Modifier',
+    entityId: 'Taj Exotica Goa - Weekend Surge 1.20x',
+    ipAddress: '122.161.4.19 (Goa, IN)',
+    severity: 'warning'
+  }
+];
+
+export const REVENUE_ANALYTICS_DATA = [
+  { month: 'Jan', revenueLakhs: 320, bookingsCount: 1420, occupancyPct: 78, adr: 8200 },
+  { month: 'Feb', revenueLakhs: 345, bookingsCount: 1510, occupancyPct: 81, adr: 8400 },
+  { month: 'Mar', revenueLakhs: 390, bookingsCount: 1690, occupancyPct: 83, adr: 8900 },
+  { month: 'Apr', revenueLakhs: 410, bookingsCount: 1780, occupancyPct: 85, adr: 9100 },
+  { month: 'May', revenueLakhs: 480, bookingsCount: 2040, occupancyPct: 91, adr: 9600 },
+  { month: 'Jun', revenueLakhs: 430, bookingsCount: 1820, occupancyPct: 82, adr: 9000 },
+  { month: 'Jul', revenueLakhs: 460, bookingsCount: 1950, occupancyPct: 84, adr: 9250 },
+  { month: 'Aug (MTD)', revenueLakhs: 520, bookingsCount: 2210, occupancyPct: 88, adr: 9750 },
+];
+
+export const CITY_DISTRIBUTION_DATA = [
+  { city: 'Mumbai', bookingsShare: 32, revenueShareLakhs: 166.4, color: '#c5a059' },
+  { city: 'Goa', bookingsShare: 24, revenueShareLakhs: 124.8, color: '#e5c07b' },
+  { city: 'Bengaluru', bookingsShare: 18, revenueShareLakhs: 93.6, color: '#10b981' },
+  { city: 'Jaipur & Udaipur', bookingsShare: 14, revenueShareLakhs: 72.8, color: '#3b82f6' },
+  { city: 'Delhi NCR', bookingsShare: 8, revenueShareLakhs: 41.6, color: '#8b5cf6' },
+  { city: 'Other Luxury Hubs', bookingsShare: 4, revenueShareLakhs: 20.8, color: '#ec4899' },
+];
+
+export const PAYMENT_METHOD_DISTRIBUTION = [
+  { name: 'UPI (GPay / PhonePe / Paytm)', value: 52, color: '#10b981' },
+  { name: 'Credit Cards (Visa / MC / Amex)', value: 34, color: '#c5a059' },
+  { name: 'Corporate NetBanking', value: 10, color: '#3b82f6' },
+  { name: 'Debit Cards', value: 4, color: '#8b5cf6' },
+];

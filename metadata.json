@@ -1,0 +1,6 @@
+{
+  "name": "StayEase - Hotel Booking & Admin Dashboard",
+  "description": "Production-grade hotel booking and accommodation administration platform for StayEase, featuring comprehensive operations management, room inventory tape charts, customer CRM, payment & instant refund processing, review moderation, dynamic pricing & coupons, and system monitoring.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
